@@ -251,38 +251,43 @@ body {
     0 0 100px rgba(52, 10, 42, 0.25);
 }
 
-/* Scroll reveal (section-reveal.js; html.js-section-reveal gates hidden states) */
-html.js-section-reveal .section-inner[class*="section-inner--reveal-"] {
-  transition:
-    opacity var(--section-reveal-duration) var(--section-reveal-ease),
-    transform var(--section-reveal-duration) var(--section-reveal-ease);
-}
-
+/* Scroll reveal (section-reveal.js; html.js-section-reveal gates hidden states)
+   Transition only on .is-revealed: deferred JS first applies hidden styles after
+   first paint; animating that step looked like a reverse fade-out. */
 html.js-section-reveal .section-inner.section-inner--reveal-a:not(.is-revealed) {
   opacity: 0;
   transform: translate3d(-2rem, 0, 0);
+  transition: none;
 }
 
 html.js-section-reveal .section-inner.section-inner--reveal-b:not(.is-revealed) {
   opacity: 0;
   transform: translate3d(0.5rem, 2.75rem, 0) scale(0.96);
+  transition: none;
 }
 
 html.js-section-reveal .section-inner.section-inner--reveal-a.is-revealed,
 html.js-section-reveal .section-inner.section-inner--reveal-b.is-revealed {
   opacity: 1;
   transform: translate3d(0, 0, 0) scale(1);
+  transition:
+    opacity var(--section-reveal-duration) var(--section-reveal-ease),
+    transform var(--section-reveal-duration) var(--section-reveal-ease);
 }
 
 /* Profile / bio: slightly stronger entrance (still reveal-a preset) */
 html.js-section-reveal #profile .section-inner.section-inner--reveal-a:not(.is-revealed) {
   opacity: 0;
-  transform: translate3d(-25rem, 1.25rem, 0) scale(0.75);
+  transform: translate3d(-5rem, 1.25rem, 0) scale(0.93);
+  transition: none;
 }
 
 html.js-section-reveal #profile .section-inner.section-inner--reveal-a.is-revealed {
   opacity: 1;
   transform: translate3d(0, 0, 0) scale(1);
+  transition:
+    opacity var(--section-reveal-duration) var(--section-reveal-ease),
+    transform var(--section-reveal-duration) var(--section-reveal-ease);
 }
 
 .section h2 {
@@ -308,6 +313,61 @@ html.js-section-reveal #profile .section-inner.section-inner--reveal-a.is-reveal
   margin: 0;
   color: var(--color-muted);
   max-width: 100%;
+}
+
+/* Profile bio block (index #profile) */
+#profile .profile-bio {
+  display: flex;
+  gap: 2.5rem;
+  align-items: flex-start;
+  flex-direction: row;
+}
+
+#profile .profile-bio__column {
+  flex: 1 1 0%;
+  margin-bottom: 0.8rem;
+}
+
+#profile .profile-bio__lead {
+  font-size: 1.35rem;
+  font-weight: 600;
+  line-height: 1.25;
+  margin-bottom: 0.75rem;
+  letter-spacing: -0.01em;
+  color: var(--color-text);
+}
+
+#profile .profile-bio__row {
+  display: flex;
+  flex-direction: row;
+  gap: 1.5rem;
+  align-items: flex-start;
+}
+
+#profile .profile-bio__text {
+  margin-top: 0;
+  font-size: 1.08rem;
+  color: var(--color-text);
+  max-width: 38em;
+}
+
+#profile .profile-bio__photo-wrap {
+  flex: 1 1 auto;
+  min-width: 120px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  margin-top: 1.5%;
+}
+
+#profile .profile-bio__photo {
+  border-radius: 50%;
+  object-fit: cover;
+  width: 225px;
+  height: 225px;
+  box-shadow: 0 4px 28px rgba(219, 0, 66, 0.555);
+  background: #292337;
+  border: 1px solid rgba(255, 115, 0, 0.5);
 }
 
 @media (max-width: 40rem) {
