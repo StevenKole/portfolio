@@ -6,17 +6,29 @@
 }
 
 :root {
-  --color-bg: #f6f4f1;
-  --color-surface: #ffffff;
-  --color-text: #1a1f26;
-  --color-muted: #5c6673;
-  --color-accent: #2d6a8f;
-  --color-accent-hover: #245a7a;
-  --color-border: #e2ddd6;
-  --header-height: 4rem;
-  --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, Ubuntu, Cantarell,
-    "Noto Sans", sans-serif;
-  --shadow-header: 0 1px 0 rgba(26, 31, 38, 0.08);
+  --color-bg-deep: #070b14;
+  --color-bg: #0c1222;
+  --color-bg-elevated: #111827;
+  --color-text: #e8eaef;
+  --color-muted: #94a3b8;
+  --color-purple: #a855f7;
+  --color-purple-dim: #7c3aed;
+  --color-blue-glow: #2563eb;
+  --color-orange: #fb923c;
+  --color-orange-bright: #f97316;
+  --color-red: #f87171;
+  --color-red-deep: #ef4444;
+  --header-height: 6.25rem;
+  --font-sans: "Outfit", system-ui, -apple-system, "Segoe UI", Roboto,
+    sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "Cascadia Code", monospace;
+  --radius-sm: 6px;
+  --content-width: 65%;
+  /* Shared glass — same values on .site-hero and .site-header (no box-shadow on these; shadow bleeds between strips) */
+  --header-glass-tint: rgba(40, 18, 53, 0.3);
+  --header-glass-blur: 12px;
+  --header-glass-saturate: 1.12;
+  --header-surface-border: 1px solid rgba(168, 85, 247, 0.25);
 }
 
 html {
@@ -28,51 +40,129 @@ html {
   html {
     scroll-behavior: auto;
   }
+
+  .brand--compact {
+    transition: none;
+  }
 }
 
 body {
   margin: 0;
   font-family: var(--font-sans);
   font-size: 1rem;
-  line-height: 1.6;
+  line-height: 1.65;
   color: var(--color-text);
-  background: var(--color-bg);
+  background: var(--color-bg-deep);
+  min-height: 100vh;
 }
 
-/* --- Sticky header --- */
-.site-header {
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  background: rgba(246, 244, 241, 0.92);
-  backdrop-filter: blur(10px);
-  border-bottom: 1px solid var(--color-border);
-  box-shadow: var(--shadow-header);
+/* Ambient tech backdrop */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 120% 80% at 50% -30%, rgba(124, 58, 237, 0.22), transparent 55%),
+    radial-gradient(ellipse 80% 50% at 100% 50%, rgba(37, 99, 235, 0.12), transparent 50%),
+    radial-gradient(ellipse 60% 40% at 0% 80%, rgba(249, 115, 22, 0.08), transparent 45%),
+    linear-gradient(180deg, var(--color-bg-deep) 0%, var(--color-bg) 35%, #0a0f1c 100%);
 }
 
-.header-inner {
-  max-width: 56rem;
-  margin: 0 auto;
-  padding: 0 1.25rem;
-  min-height: var(--header-height);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  flex-wrap: wrap;
+/* --- Hero name (scrolls away; not sticky) — same glass recipe as .site-header --- */
+.site-hero {
+  width: 100%;
+  margin: 0;
+  padding: 1.85rem 1.25rem 1.5rem;
+  text-align: center;
+  background-color: var(--header-glass-tint);
+  backdrop-filter: saturate(var(--header-glass-saturate)) blur(var(--header-glass-blur));
+  -webkit-backdrop-filter: saturate(var(--header-glass-saturate))
+    blur(var(--header-glass-blur));
+  /* No box-shadow — avoids halo between hero and sticky bar */
 }
 
 .brand {
+  font-family: var(--font-mono);
   font-weight: 700;
-  font-size: 1.125rem;
-  color: var(--color-text);
+  letter-spacing: -0.03em;
   text-decoration: none;
   white-space: nowrap;
+  background: linear-gradient(
+    135deg,
+    var(--color-text) 0%,
+    #c4b5fd 45%,
+    var(--color-orange-bright) 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  transition: filter 0.2s ease, opacity 0.2s ease;
+}
+
+.brand--hero {
+  font-size: clamp(1.65rem, 5.5vw, 3rem);
+  line-height: 1.1;
+  display: inline-block;
 }
 
 .brand:hover,
 .brand:focus-visible {
-  color: var(--color-accent);
+  filter: brightness(1.15);
+}
+
+/* --- Sticky header (nav + compact name) --- */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background-color: var(--header-glass-tint);
+  backdrop-filter: saturate(var(--header-glass-saturate)) blur(var(--header-glass-blur));
+  -webkit-backdrop-filter: saturate(var(--header-glass-saturate))
+    blur(var(--header-glass-blur));
+  border-bottom: var(--header-surface-border);
+  box-shadow: none;
+  /* Depth vs main: border only — no shadow so it doesn’t tint the hero strip above */
+}
+
+.header-inner {
+  max-width: var(--content-width);
+  margin: 0 auto;
+  padding: 0.85rem 1.25rem;
+  min-height: var(--header-height);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Compact name: anchored to viewport left, outside content column — nav stays centered */
+.brand--compact {
+  position: absolute;
+  top: 50%;
+  left: max(1.1rem, calc(0.45rem + env(safe-area-inset-left, 0px)));
+  transform: translateY(-50%);
+  z-index: 2;
+  font-size: clamp(0.7rem, 1.8vw, 0.95rem);
+  max-width: min(38vw, 12rem);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition:
+    opacity 0.22s ease,
+    visibility 0.22s ease;
+}
+
+.brand--compact.is-visible {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.site-nav {
+  width: 100%;
 }
 
 .site-nav ul {
@@ -81,41 +171,57 @@ body {
   padding: 0;
   display: flex;
   flex-wrap: wrap;
-  gap: 0.35rem 1rem;
-  justify-content: flex-end;
+  gap: 0.5rem 1.25rem;
+  justify-content: center;
+  align-items: center;
 }
 
 .site-nav a {
   color: var(--color-muted);
   text-decoration: none;
-  font-size: 0.9375rem;
+  font-size: 0.9rem;
   font-weight: 500;
-  padding: 0.35rem 0;
+  padding: 0.4rem 0.15rem;
   border-bottom: 2px solid transparent;
-  transition: color 0.15s ease, border-color 0.15s ease;
+  border-radius: var(--radius-sm);
+  transition:
+    color 0.18s ease,
+    border-color 0.18s ease,
+    text-shadow 0.18s ease;
 }
 
 .site-nav a:hover,
 .site-nav a:focus-visible {
-  color: var(--color-accent);
+  color: var(--color-orange);
+  text-shadow: 0 0 20px rgba(251, 146, 60, 0.35);
 }
 
 .site-nav a.is-active {
-  color: var(--color-accent);
-  border-bottom-color: var(--color-accent);
+  color: var(--color-text);
+  border-bottom-color: transparent;
+  background-image: linear-gradient(
+    90deg,
+    var(--color-purple) 0%,
+    var(--color-orange-bright) 50%,
+    var(--color-red-deep) 100%
+  );
+  background-size: 100% 2px;
+  background-position: left bottom;
+  background-repeat: no-repeat;
+  padding-bottom: 0.4rem;
 }
 
-/* --- Main & sections --- */
+/* --- Main & sections (flat — no card box) --- */
 .page-main {
-  max-width: 56rem;
+  max-width: var(--content-width);
   margin: 0 auto;
-  padding: 0 1.25rem 4rem;
+  padding: 0 1.25rem 4.5rem;
 }
 
 .section {
-  scroll-margin-top: var(--header-height);
-  padding: 3rem 0;
-  border-bottom: 1px solid var(--color-border);
+  /* scroll-margin removed — it stacked with html scroll-padding-top and doubled the gap */
+  padding: 1.5rem 0 2.5rem;
+  border-bottom: 1px solid rgba(168, 85, 247, 0.15);
 }
 
 .section--last {
@@ -123,36 +229,50 @@ body {
 }
 
 .section-inner {
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: 12px;
-  padding: 2rem 1.5rem;
-  box-shadow: 0 8px 24px rgba(26, 31, 38, 0.06);
+  padding: 0;
+  max-width: 100%;
 }
 
 .section h2 {
-  margin: 0 0 1rem;
-  font-size: clamp(1.35rem, 2.5vw, 1.6rem);
+  margin: 0 0 1.1rem;
+  font-size: clamp(1.35rem, 2.8vw, 1.65rem);
   font-weight: 700;
-  letter-spacing: -0.02em;
-  line-height: 1.25;
+  letter-spacing: -0.03em;
+  line-height: 1.2;
+  padding-bottom: 0.65rem;
+  border-bottom: 1px solid rgba(255, 115, 0, 0.712);
+  background-image: linear-gradient(
+    90deg,
+    var(--color-purple) 0%,
+    var(--color-blue-glow) 40%,
+    var(--color-orange) 85%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
 .placeholder {
   margin: 0;
   color: var(--color-muted);
-  max-width: 42rem;
+  max-width: 100%;
 }
 
 @media (max-width: 40rem) {
+  :root {
+    --header-height: 7rem;
+  }
+
   .header-inner {
-    flex-direction: column;
-    align-items: flex-start;
-    padding-top: 0.85rem;
-    padding-bottom: 0.85rem;
+    padding-top: 0.9rem;
+    padding-bottom: 1rem;
   }
 
   .site-nav ul {
-    justify-content: flex-start;
+    gap: 0.45rem 0.85rem;
+  }
+
+  .site-nav a {
+    font-size: 0.8125rem;
   }
 }
