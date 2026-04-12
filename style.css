@@ -25,10 +25,13 @@
   --radius-sm: 6px;
   --content-width: 65%;
   /* Shared glass — same values on .site-hero and .site-header (no box-shadow on these; shadow bleeds between strips) */
-  --header-glass-tint: rgba(40, 18, 53, 0.3);
+  --header-glass-tint: rgba(25, 11, 32, 0.384);
   --header-glass-blur: 12px;
   --header-glass-saturate: 1.12;
-  --header-surface-border: 1px solid rgba(168, 85, 247, 0.25);
+  --section-surface: rgba(52, 10, 42, 0.4);
+  --section-radius: 16px;
+  --section-reveal-duration: 0.7s;
+  --section-reveal-ease: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 html {
@@ -44,6 +47,12 @@ html {
   .brand--compact {
     transition: none;
   }
+
+  .section-inner[class*="section-inner--reveal-"] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
 }
 
 body {
@@ -56,18 +65,14 @@ body {
   min-height: 100vh;
 }
 
-/* Ambient tech backdrop */
-body::before {
-  content: "";
+/* Full-page canvas (injected by site-canvas.js) — sits behind all content */
+.site-bg-canvas {
   position: fixed;
   inset: 0;
-  z-index: -1;
+  width: 100%;
+  height: 100%;
   pointer-events: none;
-  background:
-    radial-gradient(ellipse 120% 80% at 50% -30%, rgba(124, 58, 237, 0.22), transparent 55%),
-    radial-gradient(ellipse 80% 50% at 100% 50%, rgba(37, 99, 235, 0.12), transparent 50%),
-    radial-gradient(ellipse 60% 40% at 0% 80%, rgba(249, 115, 22, 0.08), transparent 45%),
-    linear-gradient(180deg, var(--color-bg-deep) 0%, var(--color-bg) 35%, #0a0f1c 100%);
+  z-index: -1;
 }
 
 /* --- Hero name (scrolls away; not sticky) — same glass recipe as .site-header --- */
@@ -121,9 +126,7 @@ body::before {
   backdrop-filter: saturate(var(--header-glass-saturate)) blur(var(--header-glass-blur));
   -webkit-backdrop-filter: saturate(var(--header-glass-saturate))
     blur(var(--header-glass-blur));
-  border-bottom: var(--header-surface-border);
   box-shadow: none;
-  /* Depth vs main: border only — no shadow so it doesn’t tint the hero strip above */
 }
 
 .header-inner {
@@ -211,7 +214,7 @@ body::before {
   padding-bottom: 0.4rem;
 }
 
-/* --- Main & sections (flat — no card box) --- */
+/* --- Main & sections (content cards — not full-bleed; header/hero unchanged) --- */
 .page-main {
   max-width: var(--content-width);
   margin: 0 auto;
@@ -219,18 +222,60 @@ body::before {
 }
 
 .section {
-  /* scroll-margin removed — it stacked with html scroll-padding-top and doubled the gap */
-  padding: 1.5rem 0 2.5rem;
-  border-bottom: 1px solid rgba(168, 85, 247, 0.15);
+  padding: 0.75rem 0 1.25rem;
 }
 
 .section--last {
-  border-bottom: none;
+  padding-bottom: 0;
 }
 
 .section-inner {
-  padding: 0;
   max-width: 100%;
+  padding: 1.5rem 1.35rem 2rem;
+  border-radius: var(--section-radius);
+  background-color: var(--section-surface);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  /* Soft edge: layered shadow + tinted glow so the panel fades into the page */
+  box-shadow:
+    0 4px 20px rgba(0, 0, 0, 0.35),
+    0 0 0 1px rgba(168, 85, 247, 0.1),
+    0 0 50px rgba(52, 10, 42, 0.5),
+    0 0 100px rgba(52, 10, 42, 0.25);
+}
+
+/* Scroll reveal (section-reveal.js; html.js-section-reveal gates hidden states) */
+html.js-section-reveal .section-inner[class*="section-inner--reveal-"] {
+  transition:
+    opacity var(--section-reveal-duration) var(--section-reveal-ease),
+    transform var(--section-reveal-duration) var(--section-reveal-ease);
+}
+
+html.js-section-reveal .section-inner.section-inner--reveal-a:not(.is-revealed) {
+  opacity: 0;
+  transform: translate3d(-2rem, 0, 0);
+}
+
+html.js-section-reveal .section-inner.section-inner--reveal-b:not(.is-revealed) {
+  opacity: 0;
+  transform: translate3d(0.5rem, 2.75rem, 0) scale(0.96);
+}
+
+html.js-section-reveal .section-inner.section-inner--reveal-a.is-revealed,
+html.js-section-reveal .section-inner.section-inner--reveal-b.is-revealed {
+  opacity: 1;
+  transform: translate3d(0, 0, 0) scale(1);
+}
+
+/* Profile / bio: slightly stronger entrance (still reveal-a preset) */
+html.js-section-reveal #profile .section-inner.section-inner--reveal-a:not(.is-revealed) {
+  opacity: 0;
+  transform: translate3d(-25rem, 3.25rem, 0) scale(0.75);
+}
+
+html.js-section-reveal #profile .section-inner.section-inner--reveal-a.is-revealed {
+  opacity: 1;
+  transform: translate3d(0, 0, 0) scale(1);
 }
 
 .section h2 {
