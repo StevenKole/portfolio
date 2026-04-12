@@ -312,7 +312,8 @@ html.js-section-reveal #profile .section-inner.section-inner--reveal-a.is-reveal
 
 @media (max-width: 40rem) {
   :root {
-    --header-height: 7rem;
+    /* Taller strip: compact name row + wrapped nav */
+    --header-height: 8.5rem;
   }
 
   .site-hero {
@@ -320,8 +321,29 @@ html.js-section-reveal #profile .section-inner.section-inner--reveal-a.is-reveal
     padding-right: max(1.25rem, env(safe-area-inset-right, 0px));
   }
 
+  .site-header {
+    padding-top: env(safe-area-inset-top, 0px);
+  }
+
+  /* Compact name centered on the top row above the nav */
+  .brand--compact {
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%);
+    top: max(0.55rem, calc(env(safe-area-inset-top, 0px) + 0.35rem));
+    max-width: min(
+      calc(
+        100vw - env(safe-area-inset-left, 0px) - env(safe-area-inset-right, 0px) -
+          1.5rem
+      ),
+      12rem
+    );
+    text-align: center;
+    z-index: 3;
+  }
+
   .header-inner {
-    padding-top: 0.9rem;
+    padding-top: 2.45rem;
     padding-bottom: 1rem;
     padding-left: max(1rem, env(safe-area-inset-left, 0px));
     padding-right: max(1rem, env(safe-area-inset-right, 0px));
@@ -330,10 +352,6 @@ html.js-section-reveal #profile .section-inner.section-inner--reveal-a.is-reveal
   .page-main {
     padding-left: max(1rem, env(safe-area-inset-left, 0px));
     padding-right: max(1rem, env(safe-area-inset-right, 0px));
-  }
-
-  .brand--compact {
-    left: max(1rem, calc(env(safe-area-inset-left, 0px) + 0.35rem));
   }
 
   .site-nav ul {
