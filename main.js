@@ -1,6 +1,6 @@
 (function () {
   var resumeDownloadLink = document.querySelector(
-    "#resume-skills .resume-block__download a"
+    "#resume-skills a.resume-block__download"
   );
 
   function forceResumeDownload(e) {

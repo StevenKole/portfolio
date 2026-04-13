@@ -744,6 +744,14 @@ html.js-section-reveal #profile .section-inner.section-inner--reveal-a.is-reveal
     --header-height: 8.5rem;
   }
 
+  html {
+    overflow-x: clip;
+  }
+
+  .section-inner {
+    padding: 1.35rem 1.05rem 1.75rem;
+  }
+
   .site-hero {
     padding-left: max(1.25rem, env(safe-area-inset-left, 0px));
     padding-right: max(1.25rem, env(safe-area-inset-right, 0px));
@@ -780,6 +788,7 @@ html.js-section-reveal #profile .section-inner.section-inner--reveal-a.is-reveal
   .page-main {
     padding-left: max(1rem, env(safe-area-inset-left, 0px));
     padding-right: max(1rem, env(safe-area-inset-right, 0px));
+    padding-bottom: max(4rem, calc(4.5rem + env(safe-area-inset-bottom, 0px)));
   }
 
   .site-nav ul {
@@ -809,13 +818,57 @@ html.js-section-reveal #profile .section-inner.section-inner--reveal-a.is-reveal
     transform: translate3d(-1rem, 0.85rem, 0) scale(0.96);
   }
 
+  /* Profile: stack text + photo; invalid nesting fix in HTML pairs with this layout */
+  #profile .profile-bio {
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  #profile .profile-bio__row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1.35rem;
+  }
+
+  #profile .profile-bio__text {
+    max-width: none;
+  }
+
+  #profile .profile-bio__photo-wrap {
+    flex: 0 0 auto;
+    margin-top: 0;
+    width: 100%;
+    justify-content: center;
+    align-self: center;
+  }
+
+  #profile .profile-bio__photo {
+    width: min(240px, 82vw);
+    height: min(240px, 82vw);
+  }
+
+  /* Resume PDF: full width + viewport-based height (mobile browsers handle embedded PDFs inconsistently) */
+  #resume-skills .resume-block__embed-wrap {
+    width: 100%;
+    max-width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
   #resume-skills .resume-block__embed {
-    min-height: 21rem;
+    width: 100%;
+    max-width: 100%;
+    min-height: 58vh;
+    height: 65vh;
+    max-height: 28rem;
   }
 
   #work-samples .work-grid {
     grid-template-columns: 1fr;
     gap: 1rem;
+    margin: 1.25rem 0 0;
   }
 
   #certifications-education .edu-card {
