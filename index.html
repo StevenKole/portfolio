@@ -65,7 +65,7 @@
           <div class="profile-bio__column">
             <h2 id="profile-heading">Bio</h2>
             <div class="profile-bio__lead">
-              Welcome! I'm Steven Kolenko —
+              Welcome! I'm Steven Kolenko
             </div>
             <div class="profile-bio__row">
               <p class="profile-bio__text">
@@ -95,22 +95,20 @@
           <h2 id="resume-skills-heading">Resume</h2>
           <div class="resume-block">
             <div class="resume-block__lead">
-              Here is a quick look at my resume, including experience,
-              technical skills, and project highlights.
+              Here is my resume, it includes my experience, technical skills, and project highlights.
             </div>
             <p class="resume-block__text">
-              You can preview it below, or download a copy using the link.
+              You can view it below, or download a copy by clicking  <a class="resume-block__download" href="StevenKolenkoResume.pdf" download>here</a>.
             </p>
+            <br>
             <div class="resume-block__embed-wrap">
               <iframe
                 class="resume-block__embed"
-                src="StevenKolenkoResume.pdf"
+                src="StevenKolenkoResume.pdf#navpanes=0"
                 title="Steven Kolenko resume preview"
               ></iframe>
             </div>
-            <p class="resume-block__download">
-              <a href="StevenKolenkoResume.pdf" download>Download resume (PDF)</a>
-            </p>
+        
           </div>
         </div>
       </section>
@@ -122,13 +120,102 @@
       >
         <div class="section-inner">
           <h2 id="work-samples-heading">Work samples</h2>
-          <p class="placeholder">
-            Project thumbnails, links, and descriptions will go here.
-          </p>
-          <br><br><br><br> <br><br><br><br>
-          <br><br><br><br>
-          <br><br><br><br>
-          <br><br><br><br>
+          <div class="work-samples-block">
+            <div class="work-samples-block__lead">
+              A few projects that demonstrate my skills and approach to building software.
+            </div>
+            <p class="work-samples-block__text">
+              See all my code on my GitHub profile:
+              <a
+                href="https://github.com/StevenKole"
+                target="_blank"
+                rel="noopener noreferrer"
+                >github.com/StevenKole</a
+              >.
+            </p>
+            <div class="work-grid" aria-label="Featured projects">
+              <article class="work-card">
+                <div class="work-card__media">
+                  <img
+                    src="images/tictactoe.png"
+                    alt="Tic Tac Toe project"
+                    width="640"
+                    height="400"
+                    loading="lazy"
+                  >
+                </div>
+                <div class="work-card__body">
+                  <h3 class="work-card__title">Tic Tac Toe With Minimax AI</h3>
+                  <p class="work-card__desc">
+                    A playable console game with a built in unbeatable AI opponent using the
+                    minimax algorithm. Good practice in game trees and clean UI logic.
+                  </p>
+                  <a
+                    class="work-card__repo"
+                    href="https://github.com/StevenKole/TicTacToe"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >Repository</a
+                  >
+                </div>
+              </article>
+              <article class="work-card">
+                <div class="work-card__media">
+                  <img
+                    src="images/aiquiz.png"
+                    alt="Ai Quiz"
+                    width="640"
+                    height="400"
+                    loading="lazy"
+                  >
+                </div>
+                <div class="work-card__body">
+                  <h3 class="work-card__title">AI Quiz Generator</h3>
+                  <p class="work-card__desc">
+                    Uses python logic to transform notes into a format readable by a locally run AI, which generates a quiz based on the notes.
+                  </p>
+                  <a
+                    class="work-card__repo"
+                    href="https://github.com/StevenKole/AI-Quiz"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >Repository</a
+                  >
+                </div>
+              </article>
+              <article class="work-card">
+                <div class="work-card__media">
+                  <img
+                    src="images/sql.png"
+                    alt="SQL Project
+                    width="640"
+                    height="400"
+                    loading="lazy"
+                  >
+                </div>
+                <div class="work-card__body">
+                  <h3 class="work-card__title">SQL Database Design</h3>
+                  <p class="work-card__desc">
+                    An assignment that had me colloborate with a team to design a database for a fictional company based on simulated business needs.
+                  </p>
+                  <!--
+                  <a
+                    class="work-card__repo"
+                    href="https://github.com/StevenKole"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >Repository</a
+                  >
+                  
+                  
+                  
+                  -->
+                  
+                
+                </div>
+              </article>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -139,15 +226,67 @@
       >
         <div class="section-inner">
           <h2 id="certifications-education-heading">
-            Certifications / education
+            Education
           </h2>
-          <p class="placeholder">
-            Degrees, certifications, and related details will go here.
+          <p class="edu-block__intro">
+            A summary of my education and certifications.
           </p>
-          <br><br><br> <br><br><br><br>
-          <br><br><br><br>
-          <br><br><br><br>
-          <br><br><br><br>
+          <ul class="edu-list">
+            <li class="edu-card">
+              <div class="edu-card__accent" aria-hidden="true"></div>
+              <div class="edu-card__logo-wrap">
+                <img
+                  class="edu-card__logo"
+                  src="images/gbc.jpg"
+                  alt="George Brown College logo"
+                  width="88"
+                  height="88"
+                  loading="lazy"
+                >
+              </div>
+              <div class="edu-card__main">
+                <h3 class="edu-card__name">George Brown Polytechnic</h3>
+                <p class="edu-card__program">
+                  Computer Programming
+                </p>
+                <p class="edu-card__credential">
+                  Ontario College Diploma
+                </p>
+                <p class="edu-card__dates">January 2025 – April 2026</p>
+                <p class="edu-card__status">
+                  <span class="edu-card__status-label">Status</span>
+                  <span class="edu-card__status-value edu-card__status-value--progress">In progress</span>
+                </p>
+              </div>
+            </li>
+            <li class="edu-card">
+              <div class="edu-card__accent" aria-hidden="true"></div>
+              <div class="edu-card__logo-wrap">
+                <img
+                  class="edu-card__logo"
+                  src="images/sjb.png"
+                  alt="SJB logo"
+                  width="88"
+                  height="88"
+                  loading="lazy"
+                >
+              </div>
+              <div class="edu-card__main">
+                <h3 class="edu-card__name">St. Jean de Brebeuf CHS</h3>
+                <p class="edu-card__program">
+                  High School
+                </p>
+                <p class="edu-card__credential">
+                  OSSD with Ontario Scholars Award
+                </p>
+                <p class="edu-card__dates">September 2018 – June 2022</p>
+                <p class="edu-card__status">
+                  <span class="edu-card__status-label">Status</span>
+                  <span class="edu-card__status-value edu-card__status-value--done">Completed</span>
+                </p>
+              </div>
+            </li>
+          </ul>
         </div>
       </section>
     </main>
