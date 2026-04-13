@@ -1,4 +1,41 @@
 (function () {
+  var resumeDownloadLink = document.querySelector(
+    "#resume-skills .resume-block__download a"
+  );
+
+  function forceResumeDownload(e) {
+    if (!resumeDownloadLink) return;
+    e.preventDefault();
+
+    var href = resumeDownloadLink.getAttribute("href");
+    if (!href) return;
+
+    fetch(href)
+      .then(function (res) {
+        if (!res.ok) throw new Error("resume download failed");
+        return res.blob();
+      })
+      .then(function (blob) {
+        var blobUrl = URL.createObjectURL(blob);
+        var tempLink = document.createElement("a");
+        var filename = href.split("/").pop() || "resume.pdf";
+        tempLink.href = blobUrl;
+        tempLink.download = filename;
+        document.body.appendChild(tempLink);
+        tempLink.click();
+        tempLink.remove();
+        URL.revokeObjectURL(blobUrl);
+      })
+      .catch(function () {
+        /* Fallback: preserve existing behavior if fetch is blocked */
+        window.location.href = href;
+      });
+  }
+
+  if (resumeDownloadLink) {
+    resumeDownloadLink.addEventListener("click", forceResumeDownload);
+  }
+
   var navLinks = document.querySelectorAll(".site-nav a[data-section]");
   var sections = document.querySelectorAll(".page-main .section[id]");
   if (!navLinks.length || !sections.length) return;

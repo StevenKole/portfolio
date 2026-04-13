@@ -351,6 +351,12 @@ html.js-section-reveal #profile .section-inner.section-inner--reveal-a.is-reveal
   max-width: 38em;
 }
 
+#profile .profile-bio__text a {
+  color: #fff !important;
+  font-style: italic;
+  text-decoration: underline;
+}
+
 #profile .profile-bio__photo-wrap {
   flex: 1 1 auto;
   min-width: 120px;
@@ -368,6 +374,46 @@ html.js-section-reveal #profile .section-inner.section-inner--reveal-a.is-reveal
   box-shadow: 0 4px 28px rgba(219, 0, 66, 0.555);
   background: #292337;
   border: 1px solid rgba(255, 115, 0, 0.5);
+}
+
+#resume-skills .resume-block__lead {
+  font-size: 1.35rem;
+  font-weight: 600;
+  line-height: 1.25;
+  margin-bottom: 0.75rem;
+  letter-spacing: -0.01em;
+  color: var(--color-text);
+}
+
+#resume-skills .resume-block__text {
+  margin: 0 0 1rem;
+  font-size: 1.08rem;
+  color: var(--color-text);
+  max-width: 38em;
+}
+
+#resume-skills .resume-block__embed-wrap {
+  margin: 0 0 0.85rem;
+}
+
+#resume-skills .resume-block__embed {
+  width: 100%;
+  min-height: 28rem;
+  border: 1px solid rgba(255, 115, 0, 0.5);
+  border-radius: 10px;
+  background: #1b1730;
+}
+
+#resume-skills .resume-block__download {
+  margin: 0;
+  font-size: 1.08rem;
+  color: var(--color-text);
+}
+
+#resume-skills .resume-block__download a {
+  color: #fff;
+  font-style: italic;
+  text-decoration: underline;
 }
 
 @media (max-width: 40rem) {
@@ -439,5 +485,9 @@ html.js-section-reveal #profile .section-inner.section-inner--reveal-a.is-reveal
 
   html.js-section-reveal #profile .section-inner.section-inner--reveal-a:not(.is-revealed) {
     transform: translate3d(-1rem, 0.85rem, 0) scale(0.96);
+  }
+
+  #resume-skills .resume-block__embed {
+    min-height: 21rem;
   }
 }
