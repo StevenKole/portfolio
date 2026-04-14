@@ -98,10 +98,13 @@
             <div class="resume-block__lead">
               Here is my resume, it includes my experience, technical skills, and project highlights.
             </div>
-            <p class="resume-block__text">
-              You can view it below, or download a copy by clicking  <a class="resume-block__download" href="StevenKolenkoResume.pdf" download>here</a>.
+            <p class="resume-block__text resume-block__text--desktop">
+              You can view it below, or download a copy by clicking
+              <a class="resume-block__download" href="StevenKolenkoResume.pdf" download>here</a>.
             </p>
-            <br>
+            <p class="resume-block__text resume-block__text--mobile">
+              <a class="resume-block__download" href="StevenKolenkoResume.pdf" download>Download resume (PDF)</a>
+            </p>
             <div class="resume-block__embed-wrap">
               <iframe
                 class="resume-block__embed"
@@ -291,6 +294,19 @@
         </div>
       </section>
     </main>
+
+    <footer class="site-footer">
+      <div class="site-footer__inner">
+        <p class="site-footer__copyright">© 2026 Steven Kolenko</p>
+        <!-- Update href + visible text to your real email and phone -->
+        <div class="site-footer__contact" role="group" aria-label="Contact">
+          <a class="site-footer__link" href="mailto:stevenkolenko@gmail.com">stevenkolenko@gmail.com</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <a class="site-footer__link" href="tel:+6479206341">(647) 920-6341</a>
+        </div>
+        <a class="site-footer__to-top" href="#top">Return to top</a>
+      </div>
+    </footer>
 
     <script src="main.js" defer></script>
     <script src="section-reveal.js" defer></script>

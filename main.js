@@ -1,13 +1,13 @@
 (function () {
-  var resumeDownloadLink = document.querySelector(
+  var resumeDownloadLinks = document.querySelectorAll(
     "#resume-skills a.resume-block__download"
   );
 
   function forceResumeDownload(e) {
-    if (!resumeDownloadLink) return;
+    var a = e.currentTarget;
     e.preventDefault();
 
-    var href = resumeDownloadLink.getAttribute("href");
+    var href = a.getAttribute("href");
     if (!href) return;
 
     fetch(href)
@@ -32,8 +32,8 @@
       });
   }
 
-  if (resumeDownloadLink) {
-    resumeDownloadLink.addEventListener("click", forceResumeDownload);
+  for (var rd = 0; rd < resumeDownloadLinks.length; rd++) {
+    resumeDownloadLinks[rd].addEventListener("click", forceResumeDownload);
   }
 
   var navLinks = document.querySelectorAll(".site-nav a[data-section]");
@@ -95,7 +95,9 @@
   }
 
   function onInPageLinkClick(e) {
-    var a = e.target.closest(".site-hero a[href^='#'], .site-header a[href^='#']");
+    var a = e.target.closest(
+      ".site-hero a[href^='#'], .site-header a[href^='#'], .site-footer a[href^='#']"
+    );
     if (!a) return;
     var href = a.getAttribute("href");
     if (!href || href === "#") return;
@@ -132,7 +134,7 @@
     }
   }
 
-  var VIEWPORT_FOCUS_Y = 0.31;
+  var VIEWPORT_FOCUS_Y = 0.40;
 
   function setActive(id) {
     navLinks.forEach(function (a) {

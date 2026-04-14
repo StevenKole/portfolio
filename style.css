@@ -91,6 +91,8 @@ body {
   color: var(--color-text);
   background: var(--color-bg-deep);
   min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 /* Full-page canvas (injected by site-canvas.js) — sits behind all content */
@@ -244,9 +246,92 @@ body {
 
 /* --- Main & sections (content cards — not full-bleed; header/hero unchanged) --- */
 .page-main {
+  flex: 1 1 auto;
+  width: 100%;
   max-width: var(--content-width);
   margin: 0 auto;
   padding: 0 1.25rem 4.5rem;
+}
+
+/* --- Footer --- */
+.site-footer {
+  flex-shrink: 0;
+  margin-top: auto;
+  padding: 1.75rem 1.25rem 2rem;
+  padding-bottom: max(2rem, calc(1.25rem + env(safe-area-inset-bottom, 0px)));
+  border-top: 1px solid rgba(168, 85, 247, 0.12);
+  background: linear-gradient(
+    180deg,
+    rgba(7, 11, 20, 0.92) 0%,
+    rgba(12, 18, 34, 0.98) 100%
+  );
+}
+
+.site-footer__inner {
+  max-width: var(--content-width);
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem 1.75rem;
+}
+
+.site-footer__copyright {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--color-muted);
+}
+
+.site-footer__contact {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem 0.75rem;
+  font-size: 0.92rem;
+}
+
+.site-footer__sep {
+  color: rgba(148, 163, 184, 0.5);
+  user-select: none;
+}
+
+.site-footer__link {
+  color: var(--color-orange);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: color 0.18s ease, border-color 0.18s ease;
+}
+
+.site-footer__link:hover,
+.site-footer__link:focus-visible {
+  color: var(--color-orange-bright);
+  border-bottom-color: rgba(251, 146, 60, 0.45);
+}
+
+.site-footer__to-top {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  text-decoration: none;
+  padding: 0.4rem 0.65rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid rgba(168, 85, 247, 0.2);
+  transition:
+    color 0.18s ease,
+    border-color 0.18s ease,
+    background 0.18s ease;
+}
+
+.site-footer__to-top:hover,
+.site-footer__to-top:focus-visible {
+  color: var(--color-text);
+  border-color: rgba(251, 146, 60, 0.45);
+  background: rgba(168, 85, 247, 0.08);
 }
 
 .section {
@@ -413,6 +498,10 @@ html.js-section-reveal #profile .section-inner.section-inner--reveal-a.is-reveal
   max-width: 38em;
 }
 
+#resume-skills .resume-block__text--mobile {
+  display: none;
+}
+
 #resume-skills .resume-block__embed-wrap {
   margin: 0 0 0.85rem;
   display: flex;
@@ -443,6 +532,7 @@ html.js-section-reveal #profile .section-inner.section-inner--reveal-a.is-reveal
   color: var(--color-text);
 }
 
+#resume-skills a.resume-block__download,
 #resume-skills .resume-block__download a {
   color: #fff;
   font-style: italic;
@@ -847,22 +937,17 @@ html.js-section-reveal #profile .section-inner.section-inner--reveal-a.is-reveal
     height: min(240px, 82vw);
   }
 
-  /* Resume PDF: full width + viewport-based height (mobile browsers handle embedded PDFs inconsistently) */
-  #resume-skills .resume-block__embed-wrap {
-    width: 100%;
-    max-width: 100%;
-    margin-left: 0;
-    margin-right: 0;
-    overflow: auto;
-    -webkit-overflow-scrolling: touch;
+  /* Resume: no embedded PDF on small screens — download only */
+  #resume-skills .resume-block__text--desktop {
+    display: none;
   }
 
-  #resume-skills .resume-block__embed {
-    width: 100%;
-    max-width: 100%;
-    min-height: 58vh;
-    height: 65vh;
-    max-height: 28rem;
+  #resume-skills .resume-block__text--mobile {
+    display: block;
+  }
+
+  #resume-skills .resume-block__embed-wrap {
+    display: none;
   }
 
   #work-samples .work-grid {
@@ -883,5 +968,32 @@ html.js-section-reveal #profile .section-inner.section-inner--reveal-a.is-reveal
 
   #certifications-education .edu-card__main {
     grid-column: 1;
+  }
+
+  .site-footer {
+    padding-left: max(1rem, env(safe-area-inset-left, 0px));
+    padding-right: max(1rem, env(safe-area-inset-right, 0px));
+  }
+
+  .site-footer__inner {
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    gap: 1.1rem;
+  }
+
+  .site-footer__contact {
+    flex-direction: column;
+    gap: 0.45rem;
+  }
+
+  .site-footer__sep {
+    display: none;
+  }
+
+  .site-footer__to-top {
+    width: 100%;
+    max-width: 16rem;
+    text-align: center;
   }
 }
